@@ -51,11 +51,7 @@ class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **************
         in.open("Students.txt");
         int count = {};
         string str1, str2, str3, str4;
-        while(!in.eof() && !in.fail()) {
-            in >> str1;
-            in >> str2;
-            in >> str3;
-            in >> str4;
+        while(in >> str1 >> str2 >> str3 >> str4) {
             if(searchsName == str1) {  //CHECKS IF ENTERED NAME MATCHES THE NAMES IN FILE...
                 count++;
                 cout << "\n\n\t\t\tRequired Details : \n";
@@ -82,8 +78,8 @@ class CollegeTeachers : public CollegeDetails {  //TEACHERS CLASS **************
     void createFile() { //FOR TEACHERS
         ofstream out;
         out.open("Teachers.txt", ios::app);
-        out << id << endl
-            << name << endl
+        out << name << endl
+            << id << endl
             << email << endl
             << department << endl
             << qualification << endl;
@@ -97,12 +93,8 @@ class CollegeTeachers : public CollegeDetails {  //TEACHERS CLASS **************
 
         in.open("Teachers.txt");
         int count = {};
-        string str1, str2, str3, str4;
-        while(!in.eof() && !in.fail()) {
-            in >> str1;
-            in >> str2;
-            in >> str3;
-            in >> str4;
+        string str1, str2, str3, str4, str5;
+        while(in >> str1 >> str2 >> str3 >> str4 >> str5) {
             if(searchsName == str1) {  //CHECKS IF ENTERED NAME MATCHES THE NAMES IN FILE...
                 count++;
                 cout << "\n\n\t\t\tRequired Details : \n";
