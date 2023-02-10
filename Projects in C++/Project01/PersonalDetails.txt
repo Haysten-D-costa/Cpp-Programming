@@ -1,26 +1,26 @@
-                --------------------------------------------
+                -------------------------------------------------------------------------------------
                 PROGRAMMER DETAILS :
-                --------------------------------------------
-                * NAME     : Haysten D'costa
-                * ROLL NO. : 21co56
-                * GENDER   : Male
-                * COURSE   : BE Computer Engineering   
-                * SEMESTER : SEM III
-                * YEAR     : 2nd Year
-                * CLASS    : Comp B
-                * BATCH    : P3
-                * CONTACT  : 7083551411
-                * EMAIL    :
-                            -> (College)  21co56@gmail.com       
-                            -> (Personal) haystend@gmail.com     
                 -------------------------------------------------------------------------------------
+                | * NAME     : Haysten D'costa                   |  
+                | * ROLL NO. : 21co56                            |   
+                | * GENDER   : Male                              |  
+                | * COURSE   : BE Computer Engineering           |  
+                | * SEMESTER : SEM III                           |  
+                | * YEAR     : 2nd Year                          |  
+                | * CLASS    : Comp B                            |  
+                | * BATCH    : P3                                |  
+                | * CONTACT  : **********                        |  
+                | * EMAIL    :                                   |  
+                |             -> (College)  21co56@gmail.com     |     
+                |             -> (Personal) haystend@gmail.com   |    
+                --------------------------------------------------------------------------------------
                 PROGRAM DETAILS : 
-                -------------------------------------------------------------------------------------
+                --------------------------------------------------------------------------------------
                 * CREATED BY     : Master Haysten D'costa
-                * SPECIALITY     : Object Oriented Programming Concepts
-                * PURPOSE        : OOPS Mini-Project
+                * SPECIALITY     : OBJECT ORIENTED PROGRAMMING SYSTEM Concepts (OOPS).
+                * PURPOSE        : OOPS Mini-Project (2nd Year)
                 * ABOUT          : College Management System
-                -------------------------------------------------------------------------------------
+                --------------------------------------------------------------------------------------
                 NOTE : This is a college management system Program, 
                        which enables easy, secure, risk free data sorting and storage of 
                        students registering in this college.....
@@ -34,57 +34,166 @@
                         2. Teachers section...Each section involving its own files and 
                            classes, data members and functionings....
                   
-                  This program enables to store student data such as :
+                  This program enables to store member data such as :
+                    -> Id, 
                     -> Name, 
                     -> Roll Number,
-                    -> Email Address / ID,
-                    -> Branch....
+                    -> Email Address,
+                    -> Branch, Department, Qualification etc....
 
-                COMPONENTS OF THE PROGRAM :
-                There are 3 main classes : Student Class, Teacher Class and The Process Class.
-                The Class Specifications are as follows : 
+                (*) COMPONENTS OF THE PROGRAM :
+                There is one main Abstract class called the CollegeDetails which contains 3 main 
+                pure virtual functions :
+                    1. -> virtual void createFile() = 0;
+                    2. -> virtual void searchDetails() = 0;
+                    3. -> virtual void setDetails() = 0; 
 
-                (*) class CollegeStudent {  //STUDENT CLASS...
-                  protected :
-                    string sRoll;//THE STUDENT ROLL NUMBER<<<...
-                    string sName;//THE STUDENT NAME<<<...
-                    string sEmail;//THE STUDENT EMAIL<<<....
-                    string sBranch;//THE STUDENT BRANCH<<<......
-                  public :
-                    void updateData();
-                    void deleteEntry();
-                    void setSDetails();//TAKES THE STUDENT DETAILS FROM USER...
-                    int checkSBranch();//CHECKS THE BRANCH FOR INSERTION OF STUDENT DETAILS...
-                    void createSFile();//CREATES AND REGISTERS STUDENT DETAILS INPUTTED, TO FILE...
-                    void searchSFile();//SEARCHES FOR PARTICULAR STUDENT ENTRY(IN FILE)...
-                    void printAllCompS();//PRINTS DETAILS OF ALL STUDENTS IN PARTICULAR DEPARTMENTS...
-                    void printAllElecS();//.....
-                    void printAllMechS();//.....
+                (*) class CollegeDetails { //Main Abstract class...
+                        protected :
+                            string id;
+                            string roll;
+                            string name;
+                            string email;
+                            string branch;
+                            string department;
+                            string qualification;
+                        public :
+                            virtual void createFile() = 0;
+                            virtual void searchDetails() = 0;
+                            virtual void setDetails() = 0;  
                     };
+                The Above class is derived by two other main classes, namely the : 
+                    -> CollegeStudents and 
+                    -> CollegeTeachers, which define their own version for each of the function....
+                For example, 
+                [STUDENTS CLASS] : 
 
-                (*) class CollegeTeacher {  //TEACHER CLASS...
-                protected :
-                    string tID;//THE TEACHER ID<<<...
-                    string tName;//THE TEACHER NAME<<<... 
-                    string tQualification;//THE TEACHER QUALIFICATION<<<...
-                    string tDepartment;//THE TEACHER DEPARTMENT<<<....
-                public :
-                    void setTDetails();//TAKES THE TEACHER DETAILS FROM USER...
-                    int checkTBranch();//CHECKS THE BRANCH FOR INSERTION OF TEACHER DETAILS...
-                    void createTFile();//CREATES AND REGISTERS TEACHER DETAILS INPUTTED, TO FILE...
-                    void searchTFile();//SEARCHES FOR PARTICULAR TEACHER ENTRY(IN FILE)...
-                    void printAllHumT();//PRINTS DETAILS OF ALL TEACHERS IN PARTICULAR DEPARTMENTS...
-                    void printAllCompT();//PRINTS DETAILS OF ALL STUDENTS IN PARTICULAR DEPARTMENTS...
-                    void printAllElecT();//.....
-                    void printAllMechT();//.....
-                    };
+                class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **********
+                    void setDetails() {
+                        cin.ignore();
+                        cout << "\n\t\t\tEnter Name : "; cin >> name;
+                        cout << "\t\t\tEnter Roll Number : "; cin >> roll;
+                        cout << "\t\t\tEnter College Email : "; cin >> email;
+                        cout << "\t\t\tEnter Branch : "; cin >> branch;
+                    }
+                    void createFile() {  //FOR STUDENTS
+                        ofstream out;
+                        out.open("Students.txt", ios::app);
+                        out << name << endl;
+                        out << roll << endl;
+                        out << email << endl;
+                        out << branch << endl;
+                        out.close();
+                    }
+                    void searchDetails() {  //FOR STUDENTS
+                        ifstream in;
+                        string searchsName;
+                        cout << "\n\t\t\tEnter Name of student to be searched : "; cin.ignore();  
+                        //FLUSHING STREAM...
+                        getline(cin, searchsName);
 
-                While the PROCESSES Class includes the main prosesses like...
-                The program Interfaces the registration processes, the searching of student and 
-                teachers, displaying all the details etc.......
-                It works systematically and even a student from non CS Background can understand and
-                use it without having any doubts or any problems in understanding the same....
+                        in.open("Students.txt");
+                        int count = {};
+                        string str1, str2, str3, str4;
+                        while(!in.eof() && !in.fail()) {
+                            in >> str1;
+                            in >> str2;
+                            in >> str3;
+                            in >> str4;
+                            if(searchsName == str1) {  //CHECKS IF ENTERED NAME MATCHES THE NA
+                            MES IN FILE...
+                                count++;
+                                cout << "\n\n\t\t\tRequired Details : \n";
+                                cout << "\n"
+                                    << "\t\t\tName          : " << setw(25) << str1 << endl
+                                    << "\t\t\tRoll no       : " << setw(25) << str2 << endl
+                                    << "\t\t\tBranch        : " << setw(25) << str3 << endl
+                                    << "\t\t\tCollege Email : " << setw(25) << str4 << endl;
+                            }
+                        }
+                        in.close();
+                        if(count == 0) { cout << "\n\t\t\tNo such Entries found !\n"; }
+                    }
+                };
+
+
+                similarly, 
+                [TEACHERS CLASS] :
+                class CollegeTeachers : public CollegeDetails {  //TEACHERS CLASS *****************
+                ******************
+                    void setDetails() {
+                        cin.ignore();
+                        cout << "\t\t\tEnter ID : "; cin >> id;
+                        cout << "\n\t\t\tEnter Name : "; cin >> name;
+                        cout << "\t\t\tEnter Email : "; cin >> email;
+                        cout << "\t\t\tEnter Department : "; cin >> department;
+                        cout << "\t\t\tEnter Qualification : "; cin >> qualification;
+                    }
+                    void createFile() { //FOR TEACHERS
+                        ofstream out;
+                        out.open("Teachers.txt", ios::app);
+                        out << id << endl
+                            << name << endl
+                            << email << endl
+                            << department << endl
+                            << qualification << endl;
+                        out.close();
+                    }
+                    void searchDetails() {  //FOR TEACHERS
+                        ifstream in;
+                        string searchsName;
+                        cout << "\n\t\t\tEnter Name of student to be searched : "; cin.ignore();
+                          //FLUSHING STREAM...
+                        getline(cin, searchsName);
+
+                        in.open("Teachers.txt");
+                        int count = {};
+                        string str1, str2, str3, str4;
+                        while(!in.eof() && !in.fail()) {
+                            in >> str1;
+                            in >> str2;
+                            in >> str3;
+                            in >> str4;
+                            if(searchsName == str1) {  //CHECKS IF ENTERED NAME MATCHES THE NAM
+                            ES IN FILE...
+                                count++;
+                                cout << "\n\n\t\t\tRequired Details : \n";
+                                cout << "\n"
+                                    << "\t\t\tName          : " << setw(25) << str1 << endl
+                                    << "\t\t\tRoll no       : " << setw(25) << str2 << endl
+                                    << "\t\t\tBranch        : " << setw(25) << str3 << endl
+                                    << "\t\t\tCollege Email : " << setw(25) << str4 << endl;
+                            }
+                        }
+                        in.close();
+                        if(count == 0) { cout << "\n\t\t\tNo such Entries found !\n"; }
+                    }
+                };
 
                 For Even more info about the same Contact,
                 Haysten D'costa.....
+                **********.
                 -------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+                                                        Will be updated soon  .......................
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

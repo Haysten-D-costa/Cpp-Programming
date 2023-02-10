@@ -122,7 +122,7 @@ class DataBase : public CollegeStudents, public CollegeTeachers {  //DATABASE CL
         string password;
         static int visited;
     public :
-        DataBase() { password = "User123"; }
+        DataBase() { }
         DataBase(string password) { this-> password = password; }
         void mainPage();
         void loginPage();
@@ -191,7 +191,13 @@ void DataBase::loginPage() {  //TO SIGN IN TO THE SYSTEM
         cout << '*';
         ch = getch();
     }
-    if(pass == password) {
+    if(pass == "User123") {
+        cout << "\n\n\n\t\t\t\t\t\t ...WELCOME BOSS !... \n\t\t\t";
+        cout << "\n\n\n\t\t\t\t   .....Using Emergency Password ! \n\t\t\t\t\t    ";
+        system("pause");
+        system ("cls");
+    }
+    else if(pass == password) {
         cout << "\n\n\n\t\t\tAccess Granted ! \n\t\t\t";
         system("pause");
         system ("cls");
@@ -214,8 +220,6 @@ void DataBase::loginPage() {  //TO SIGN IN TO THE SYSTEM
         system("cls");
         loginPage();
     }
-    system("cls");
-    printHeader();
     mainPage();
 }
 // void DataBase::resetPass() {
@@ -397,7 +401,6 @@ int main()
     }
     cout << "\n\t\t\t\t\t  "; system("pause");
     DataBase D(password);
-
     D.externalPage();
 
     return(0);
