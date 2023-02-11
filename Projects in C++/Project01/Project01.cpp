@@ -10,6 +10,7 @@
 using namespace std;
 
 int n, choice;
+string encriptPass();
 
 class CollegeDetails { //Main Abstract class...
     protected :
@@ -317,14 +318,18 @@ void DataBase::loginPage() {  //TO SIGN IN TO THE SYSTEM
     printHeader();
     string pass;
     int ch;
-    cout << "\n\t\t\t..... Enter Password : "; ch=getch();
-    while(ch != 13) {
-        pass.push_back(ch);
-        cout << '*';
-        ch = getch();
-    }
+    cout << "\n\t\t\t..... Enter Password : "; pass = encriptPass();
     if(pass == "User123") {
+        int credDOB, credOTP;
         cout << "\n\n\n\t\t\t\t\t\t ...WELCOME BOSS !... \n\t\t\t";
+        cout << "\n\n\n\n\t\t...Please verify yourself !...\n"
+             << "\n\t\t\t\tEnter Security Credentials : ";
+        cin >> credDOB >> credOTP;
+        if((credDOB == 0124) && (credOTP == 2003)) { cout << "\n\n\t\t\t\tGranted security access..."; }
+        else { 
+            cout << "\n\n\t\t\t\tDenied Access :: SYSTEM LOCKED ::"; 
+            exit(1);
+        }
         cout << "\n\n\n\t\t\t\t   .....Using Emergency Password ! \n\t\t\t\t\t    ";
         system("pause");
         system ("cls");
@@ -492,12 +497,8 @@ int main()
         cout << '*';
         ch = getch();
     }
-    cout << "\n\t\t\tRe-Enter the same password : ";ch=getch();
-    while(ch != 13) {
-        confirm.push_back(ch);
-        cout << '*';
-        ch = getch();
-    }
+    cout << "\n\t\t\tRe-Enter the same password : "; confirm = encriptPass();
+
     if(confirm == p) { 
         cout << "\n\n\t\t\t\tPassword successfully set !"; 
         password = p;
@@ -529,4 +530,15 @@ int main()
     D.externalPage();
 
     return(0);
+}
+string encriptPass() {  // A simple call/pass by value function to encript characters during entering password...
+     int ch;
+     string password;
+     ch = getch();
+     while(ch != 13) {
+          password.push_back(ch);
+          cout << '*';
+          ch = getch();
+    }
+    return(password);
 }
