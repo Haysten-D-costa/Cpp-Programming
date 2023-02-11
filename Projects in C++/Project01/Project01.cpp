@@ -5,7 +5,6 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <windows.h>
-#include <sstream>
 
 using namespace std;
 
@@ -67,10 +66,10 @@ class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **************
                     count++;
                     if(count < 2) { cout << "\n\n\t\t\tRequired Details : \n"; }
                     cout << "\n"
-                         << "\t\t\tName          : " << setw(25) << str1 << endl
-                         << "\t\t\tRoll no       : " << setw(25) << str2 << endl
-                         << "\t\t\tCollege Email : " << setw(25) << str3 << endl
-                         << "\t\t\tBranch        : " << setw(25) << str4 << endl;
+                         << "\t\t\tName          : " << setw(35) << str1 << endl
+                         << "\t\t\tRoll no       : " << setw(35) << str2 << endl
+                         << "\t\t\tCollege Email : " << setw(35) << str3 << endl
+                         << "\t\t\tBranch        : " << setw(35) << str4 << endl;
                 }
             }
             // while(getline(in, str)) {  /* This doesnt work, but try and check..... creates a problem when using sstream*/
@@ -80,10 +79,10 @@ class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **************
             //         count++;
             //         cout << "\n\n\t\t\tRequired Details : \n";
             //         cout << "\n"
-            //              << "\t\t\tName          : " << setw(25) << str1 << endl
-            //              << "\t\t\tRoll no       : " << setw(25) << str2 << endl
-            //              << "\t\t\tCollege Email : " << setw(25) << str3 << endl
-            //              << "\t\t\tBranch        : " << setw(25) << str4 << endl;
+            //              << "\t\t\tName          : " << setw(35) << str1 << endl
+            //              << "\t\t\tRoll no       : " << setw(35) << str2 << endl
+            //              << "\t\t\tCollege Email : " << setw(35) << str3 << endl
+            //              << "\t\t\tBranch        : " << setw(35) << str4 << endl;
             //     }
             // }
 
@@ -105,10 +104,10 @@ class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **************
                     count++;
                     if(count < 2) { cout << "\n\n\t\t\tRequired Details : \n"; }
                     cout << "\n"
-                            << "\t\t\tName          : " << setw(25) << str1 << endl
-                            << "\t\t\tRoll no       : " << setw(25) << str2 << endl
-                            << "\t\t\tCollege Email : " << setw(25) << str3 << endl
-                            << "\t\t\tBranch        : " << setw(25) << str4 << endl;
+                         << "\t\t\tName          : " << setw(35) << str1 << endl
+                         << "\t\t\tRoll no       : " << setw(35) << str2 << endl
+                         << "\t\t\tCollege Email : " << setw(35) << str3 << endl
+                         << "\t\t\tBranch        : " << setw(35) << str4 << endl;
                 }
             }
             in.close();
@@ -126,10 +125,10 @@ class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **************
                     count++;
                     if(count < 2) { cout << "\n\n\t\t\tRequired Details : \n"; }
                     cout << "\n"
-                            << "\t\t\tName          : " << setw(25) << str1 << endl
-                            << "\t\t\tRoll no       : " << setw(25) << str2 << endl
-                            << "\t\t\tCollege Email : " << setw(25) << str3 << endl
-                            << "\t\t\tBranch        : " << setw(25) << str4 << endl;
+                         << "\t\t\tName          : " << setw(35) << str1 << endl
+                         << "\t\t\tRoll no       : " << setw(35) << str2 << endl
+                         << "\t\t\tCollege Email : " << setw(35) << str3 << endl
+                         << "\t\t\tBranch        : " << setw(35) << str4 << endl;
                 }
             }
             in.close();
@@ -147,10 +146,10 @@ class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **************
                     count++;
                     if(count < 2) { cout << "\n\n\t\t\tRequired Details : \n"; }
                     cout << "\n"
-                            << "\t\t\tName          : " << setw(25) << str1 << endl
-                            << "\t\t\tRoll no       : " << setw(25) << str2 << endl
-                            << "\t\t\tCollege Email : " << setw(25) << str3 << endl
-                            << "\t\t\tBranch        : " << setw(25) << str4 << endl;
+                         << "\t\t\tName          : " << setw(35) << str1 << endl
+                         << "\t\t\tRoll no       : " << setw(35) << str2 << endl
+                         << "\t\t\tCollege Email : " << setw(35) << str3 << endl
+                         << "\t\t\tBranch        : " << setw(35) << str4 << endl;
                 }
             }
             in.close();
@@ -169,8 +168,8 @@ class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **************
 class CollegeTeachers : public CollegeDetails {  //TEACHERS CLASS ***********************************
     void setDetails() {
         cin.ignore();
-        cout << "\t\t\tEnter ID : "; getline(cin, id);
-        cout << "\n\t\t\tEnter Name : "; getline(cin, name);
+        cout << "\n\t\t\tEnter ID : "; getline(cin, id);
+        cout << "\t\t\tEnter Name : "; getline(cin, name);
         cout << "\t\t\tEnter Email : "; getline(cin, email);
         cout << "\t\t\tEnter Department : "; getline(cin, department);
         cout << "\t\t\tEnter Qualification : "; getline(cin, qualification);
@@ -194,7 +193,7 @@ class CollegeTeachers : public CollegeDetails {  //TEACHERS CLASS **************
         cout << "\n\t\t\t1 <- Search teacher by 'Name'....." << endl
              << "\t\t\t2 <- Search teacher by 'ID'....." << endl
              << "\t\t\t0 <- To return to previous page....." << endl
-             << "\n\t\t ..... Enter your choice : "; cin >> choice;
+             << "\n\t...Enter your choice : "; cin >> choice;
         if(choice == 1) {
             cout << "\n\t\t\tEnter Name of teacher to be searched : "; cin.ignore();  //FLUSHING STREAM...
             getline(cin, searchName);
@@ -206,13 +205,13 @@ class CollegeTeachers : public CollegeDetails {  //TEACHERS CLASS **************
                 getline(in, str5);
                 if(searchName == str1) {  //CHECKS IF ENTERED NAME MATCHES THE NAMES IN FILE...
                     count++;
-                    cout << "\n\n\t\t\tRequired Details : \n";
+                    if(count < 2) { cout << "\n\n\t\t\tRequired Details : \n"; }
                     cout << "\n"
-                                 << "\t\t\tName          : " << setw(25) << str1 << endl
-                                 << "\t\t\tID            : " << setw(25) << str2 << endl
-                                 << "\t\t\tEmail         : " << setw(25) << str3 << endl
-                                 << "\t\t\tDepartment    : " << setw(25) << str4 << endl
-                                 << "\t\t\tQualification : " << setw(25) << str5 << endl;
+                         << "\t\t\tName          : " << setw(35) << str1 << endl
+                         << "\t\t\tID            : " << setw(35) << str2 << endl
+                         << "\t\t\tEmail         : " << setw(35) << str3 << endl
+                         << "\t\t\tDepartment    : " << setw(35) << str4 << endl
+                         << "\t\t\tQualification : " << setw(35) << str5 << endl;
                 }
             }
             in.close();
@@ -229,13 +228,13 @@ class CollegeTeachers : public CollegeDetails {  //TEACHERS CLASS **************
                 getline(in, str5);
                 if(searchID == str2) {  //CHECKS IF ENTERED NAME MATCHES THE NAMES IN FILE...
                     count++;
-                    cout << "\n\n\t\t\tRequired Details : \n";
+                    if(count < 2) { cout << "\n\n\t\t\tRequired Details : \n"; }
                     cout << "\n"
-                                 << "\t\t\tName          : " << setw(25) << str1 << endl
-                                 << "\t\t\tID            : " << setw(25) << str2 << endl
-                                 << "\t\t\tEmail         : " << setw(25) << str3 << endl
-                                 << "\t\t\tDepartment    : " << setw(25) << str4 << endl
-                                 << "\t\t\tQualification : " << setw(25) << str5 << endl;
+                         << "\t\t\tName          : " << setw(35) << str1 << endl
+                         << "\t\t\tID            : " << setw(35) << str2 << endl
+                         << "\t\t\tEmail         : " << setw(35) << str3 << endl
+                         << "\t\t\tDepartment    : " << setw(35) << str4 << endl
+                         << "\t\t\tQualification : " << setw(35) << str5 << endl;
                 }
             }
             in.close();
@@ -421,9 +420,7 @@ void DataBase::mainPage()  {  //MAIN REGISTRATION FUNCTION
                                 break;
                         case 2 :
                                 system("cls");
-                                // CollegeStudents s1;
-                                // s1.
-                                p-> searchDetails(); cout << "\n\n\t\t\t";
+                                p-> searchDetails(); cout << "\n\n\t\t\t\t\t\t\t\t";
                                 system("pause");
                                 break;
                         case 0 :loginPage(); break;
@@ -443,7 +440,7 @@ void DataBase::mainPage()  {  //MAIN REGISTRATION FUNCTION
                     cout << "\n\t\t\t1 -> Register New Teacher....." << endl
                          << "\t\t\t2 -> Search For Teacher..... " << endl
                          << "\t\t\t0 -> Exit Page....." << endl
-                         << "\n\t\t ..... Enter your choice : "; cin >> choice;
+                         << "\n\t...Enter your choice : "; cin >> choice;
                     switch(choice) {
                         case 1 :
                             cout << "\n\t\t\t";
@@ -460,7 +457,7 @@ void DataBase::mainPage()  {  //MAIN REGISTRATION FUNCTION
                         case 2 :
                                 system("cls");
                                 printHeader();
-                                p-> searchDetails(); cout << "\n\n\t";
+                                p-> searchDetails(); cout << "\n\n\t\t\t\t\t\t\t\t";
                                 system("pause");
                                 break;
                         case 0 :loginPage(); break;
