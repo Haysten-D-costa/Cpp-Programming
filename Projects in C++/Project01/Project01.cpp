@@ -1,3 +1,22 @@
+/* *****************************************************************************************************************
+Lab ID        : 1.0 (Projects in C++)
+Program Title : Basics to Advance of C++
+Author        : Haysten D'costa
+Roll No.      : 21co56
+Class         : Comp B[Batch P3]
+Language      : C++
+Due Date      : --
+--------------------------------------------------------------------------------------------------------------------
+Description   : C++ Program to implement a college management system.....
+Input         : --
+Output        : --
+Algorithm     : --
+Prerequisites : Basics of C and C++
+Known Bugs    : 1. While displaying the data of any member, it displays repeated copies
+                   of the last member entry...
+                2. 
+***************************************************************************************************************** */
+
 #include <iostream>
 #include <cstring>
 #include <iomanip>
@@ -8,8 +27,8 @@
 
 using namespace std;
 
-int n, choice;
-string encriptPass();
+int n, choice, count, addCount = 0;;
+string encriptPass(); // Funtion to encode the characters while entering the password...
 
 class CollegeDetails { //Main Abstract class...
     protected :
@@ -20,13 +39,15 @@ class CollegeDetails { //Main Abstract class...
         string branch;
         string department;
         string qualification;
-    public :
+    public : //These function can be defined in own way for students and teachers section...
         virtual void createFile() = 0;
         virtual void searchDetails() = 0;
-        virtual void setDetails() = 0;  //This function can be defined in own way for students and teachers section...
+        virtual void setDetails() = 0;  //These function can be defined in own way for students and teachers section...
+        virtual void deleteDetails() = 0;
 };
 class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **********************************
     void setDetails() {
+        addCount++;
         cin.ignore();
         cout << "\n\t\t\tEnter Name : "; getline(cin, name);
         cout << "\t\t\tEnter Roll Number : "; getline(cin, roll);
@@ -57,7 +78,7 @@ class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **************
         if(choice == 1) {
             cout << "\n\t\t\tEnter Name of student to be searched : "; cin.ignore();  //FLUSHING STREAM...
             getline(cin, searchName);
-            while(!in.eof()) {          /* MAIN CORRECT CODE, commented to try something diff...below!! */
+            while(!in.eof() && !in.fail()) {          /* MAIN CORRECT CODE, commented to try something diff...below!! */
                 getline(in, str1);
                 getline(in, str2);
                 getline(in, str3);
@@ -95,7 +116,7 @@ class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **************
         else if(choice == 2) {
             cout << "\n\t\t\tEnter Roll Number of student to be searched : "; cin.ignore();  //FLUSHING STREAM...
             getline(cin, searchRollno);
-            while(!in.eof()) {
+            while(!in.eof() && !in.fail()) {
                 getline(in, str1);
                 getline(in, str2);
                 getline(in, str3);
@@ -116,7 +137,7 @@ class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **************
         else if(choice == 3) {
             cout << "\n\t\t\tEnter Email of student to be searched : "; cin.ignore();  //FLUSHING STREAM...
             getline(cin, searchEmail);
-            while(!in.eof()) {
+            while(!in.eof() && !in.fail()) {
                 getline(in, str1);
                 getline(in, str2);
                 getline(in, str3);
@@ -137,7 +158,7 @@ class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **************
         else if(choice == 4) {
             cout << "\n\t\t\tEnter Branch of student to be searched : "; cin.ignore();  //FLUSHING STREAM...
             getline(cin, searchBranch);
-            while(!in.eof()) {
+            for(int i=0; i<addCount && !in.eof(); i++) {
                 getline(in, str1);
                 getline(in, str2);
                 getline(in, str3);
@@ -163,6 +184,86 @@ class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **************
         }       
                 
 
+    }
+    void deleteDetails() {
+        addCount--;
+        ifstream in; in.open("Students.txt");
+        ofstream out; out.open("TemporaryStudents.txt", ios::app);
+
+        string str, str1, str2, str3, str4;
+        string deleteName, deleteRollno, deleteEmail;
+        int count = {};
+        cout << "\n\t\t\t1 <- Delete student by 'Name'....." << endl
+             << "\t\t\t2 <- Delete student by 'Roll number'....." << endl
+             << "\t\t\t3 <- Delete student by 'Email'....." << endl
+             << "\t\t\t0 <- To return to previous page....." << endl
+             << "\n\t\t .....Enter your choice : "; cin >> choice;
+        if(choice == 1) {
+            cout << "\n\t\t\tEnter Name of student to be deleted : "; cin.ignore();  //FLUSHING STREAM...
+            getline(cin, deleteName);
+            while(!in.eof() && !in.fail()) {          /* MAIN CORRECT CODE, commented to try something diff...below!! */
+                getline(in, str1);
+                getline(in, str2);
+                getline(in, str3);
+                getline(in, str4);
+                if(deleteName == str1) { continue; }
+                else {
+                    out << str1 << endl;
+                    out << str2 << endl;
+                    out << str3 << endl;
+                    out << str4 << endl;
+                }
+            }
+            in.close();
+            out.close();
+            if(count == 0) { cout << "\n\t\t\tNo such Entries found !\n"; }
+        }
+        else if(choice == 2) {
+            cout << "\n\t\t\tEnter Roll Number of student to be deleted : "; cin.ignore();  //FLUSHING STREAM...
+            getline(cin, deleteRollno);
+            while(!in.eof()) {
+                getline(in, str1);
+                getline(in, str2);
+                getline(in, str3);
+                getline(in, str4);
+                if(deleteRollno == str2) { continue; }
+                else {
+                    out << str1 << endl;
+                    out << str2 << endl;
+                    out << str3 << endl;
+                    out << str4 << endl;
+                }
+            }
+            in.close();
+            out.close();
+            if(count == 0) { cout << "\n\t\t\tNo such Entries found !\n"; }
+        }
+        else if(choice == 3) {
+            cout << "\n\t\t\tEnter Email of student to be deleted : "; cin.ignore();  //FLUSHING STREAM...
+            getline(cin, deleteEmail);
+            while(!in.eof()) {
+                getline(in, str1);
+                getline(in, str2);
+                getline(in, str3);
+                getline(in, str4);
+                if(deleteEmail == str3) { continue; }
+                else {
+                    out << str1 << endl;
+                    out << str2 << endl;
+                    out << str3 << endl;
+                    out << str4 << endl;
+                }
+            }
+            in.close();
+            out.close();
+            if(count == 0) { cout << "\n\t\t\tNo such Entries found !\n"; }
+        }
+        else if(choice == 0) {
+            return;
+        }
+        else {
+            cout << endl << "Incorrect Choice Entered ! " << endl; //break;
+        }       
     }
 };
 class CollegeTeachers : public CollegeDetails {  //TEACHERS CLASS ***********************************
@@ -247,6 +348,92 @@ class CollegeTeachers : public CollegeDetails {  //TEACHERS CLASS **************
         }       
                 
 
+    }
+    void deleteDetails() {
+
+        ifstream in; in.open("Teachers.txt");
+        ofstream out; out.open("TemporaryTeachers.txt", ios::app);
+
+        string str, str1, str2, str3, str4, str5;
+        string deleteName, deleteID, deleteEmail;
+        int count = {};
+        cout << "\n\t\t\t1 <- Delete teacher by 'Name'....." << endl
+             << "\t\t\t2 <- Delete teacher by 'ID'....." << endl
+             << "\t\t\t3 <- Delete teacher by 'Email'....." << endl
+             << "\t\t\t0 <- To return to previous page....." << endl
+             << "\n\t\t .....Enter your choice : "; cin >> choice;
+        if(choice == 1) {
+            cout << "\n\t\t\tEnter Name of teacher entry to be deleted : "; cin.ignore();  //FLUSHING STREAM...
+            getline(cin, deleteName);
+            while(!in.eof()) {          /* MAIN CORRECT CODE, commented to try something diff...below!! */
+                getline(in, str1);
+                getline(in, str2);
+                getline(in, str3);
+                getline(in, str4);
+                getline(in, str5);
+                if(deleteName == str1) { continue; }
+                else {
+                    out << str1 << endl;
+                    out << str2 << endl;
+                    out << str3 << endl;
+                    out << str4 << endl;
+                    out << str5 << endl;
+                }
+            }
+            in.close();
+            out.close();
+            if(count == 0) { cout << "\n\t\t\tNo such Entries found !\n"; }
+        }
+        else if(choice == 2) {
+            cout << "\n\t\t\tEnter ID of teacher entry to be deleted : "; cin.ignore();  //FLUSHING STREAM...
+            getline(cin, deleteID);
+            while(!in.eof()) {
+                getline(in, str1);
+                getline(in, str2);
+                getline(in, str3);
+                getline(in, str4);
+                getline(in, str5);
+                if(deleteID == str2) { continue; }
+                else {
+                    out << str1 << endl;
+                    out << str2 << endl;
+                    out << str3 << endl;
+                    out << str4 << endl;
+                    out << str5 << endl;
+                }
+            }
+            in.close();
+            out.close();
+            if(count == 0) { cout << "\n\t\t\tNo such Entries found !\n"; }
+        }
+        else if(choice == 3) {
+            cout << "\n\t\t\tEnter Email of teacher entry to be deleted : "; cin.ignore();  //FLUSHING STREAM...
+            getline(cin, deleteEmail);
+            while(!in.eof()) {
+                getline(in, str1);
+                getline(in, str2);
+                getline(in, str3);
+                getline(in, str4);
+                getline(in, str5);
+                if(deleteEmail == str3) { continue; }
+                else {
+                    out << str1 << endl;
+                    out << str2 << endl;
+                    out << str3 << endl;
+                    out << str4 << endl;
+                    out << str5 << endl;
+                }
+            }
+            in.close();
+            out.close();
+            if(count == 0) { cout << "\n\t\t\tNo such Entries found !\n"; }
+        }
+        else if(choice == 0) {
+            return;
+        }
+        else {
+            cout << endl << "Incorrect Choice Entered ! " << endl; //break;
+        }       
     }
 };
 class DataBase : public CollegeStudents, public CollegeTeachers {  //DATABASE CLASS (MAINNNNNNN)....
@@ -402,6 +589,7 @@ void DataBase::mainPage()  {  //MAIN REGISTRATION FUNCTION
                     CollegeDetails *p = &s;
                     cout << "\n\t\t\t1 -> Register New Student....." << endl
                          << "\t\t\t2 -> Search For Student..... " << endl
+                         << "\t\t\t3 -> Delete Student Entry..... " << endl
                          << "\t\t\t0 -> Exit Page....." << endl
                          << "\n\t\t   .....Enter your choice : "; cin >> choice;
                     switch(choice) {
@@ -416,11 +604,18 @@ void DataBase::mainPage()  {  //MAIN REGISTRATION FUNCTION
                                     p-> createFile();
                                 }
                                 cout << "\n\t\t\t";
+                                cout << "[[[]]] : " << addCount;
                                 system("pause");
                                 break;
                         case 2 :
                                 system("cls");
                                 p-> searchDetails(); cout << "\n\n\t\t\t\t\t\t\t\t";
+                                system("pause");
+                                break;
+                        case 3 : 
+                                system("cls");
+                                p-> deleteDetails(); cout << "\n\n\t\t\t\t\t\t\t\t";
+                                cout << "[[[]]] : " << addCount;
                                 system("pause");
                                 break;
                         case 0 :loginPage(); break;
