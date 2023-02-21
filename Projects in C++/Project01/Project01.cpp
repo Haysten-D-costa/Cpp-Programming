@@ -14,7 +14,7 @@ Algorithm     : --
 Prerequisites : Basics of C and C++
 Known Bugs    : 1. While displaying the data of any member, it displays repeated copies
                    of the last member entry...
-                2. 
+                2. Exiting pages causes some wrong exit...check later.
 ***************************************************************************************************************** */
 
 #include <iostream>
@@ -39,15 +39,15 @@ class CollegeDetails { //Main Abstract class...
         string branch;
         string department;
         string qualification;
-    public : //These function can be defined in own way for students and teachers section...
+    public : //These function can be defined in own way for students and teachers section... these are pure virtual functions which can be derived by any other class... to reduce redudancy and improve the code...
+        virtual void setDetails() = 0;
         virtual void createFile() = 0;
         virtual void searchDetails() = 0;
-        virtual void setDetails() = 0;  //These function can be defined in own way for students and teachers section...
         virtual void deleteDetails() = 0;
 };
 class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **********************************
     void setDetails() {
-        addCount++;
+        // addCount++;
         cin.ignore();
         cout << "\n\t\t\tEnter Name : "; getline(cin, name);
         cout << "\t\t\tEnter Roll Number : "; getline(cin, roll);
@@ -158,7 +158,7 @@ class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **************
         else if(choice == 4) {
             cout << "\n\t\t\tEnter Branch of student to be searched : "; cin.ignore();  //FLUSHING STREAM...
             getline(cin, searchBranch);
-            for(int i=0; i<addCount && !in.eof(); i++) {
+            for(int i=0; i<countEntries(); i++) { //(countEntries) checks the no. of lines in the Students.txt file, and returns the count when divided by 4(no. of details asked)....to give, total no. of students registered....
                 getline(in, str1);
                 getline(in, str2);
                 getline(in, str3);
@@ -186,11 +186,12 @@ class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **************
 
     }
     void deleteDetails() {
-        addCount--;
+        // addCount--;
+        string str, str1, str2, str3, str4;
+        
         ifstream in; in.open("Students.txt");
         ofstream out; out.open("TemporaryStudents.txt", ios::app);
 
-        string str, str1, str2, str3, str4;
         string deleteName, deleteRollno, deleteEmail;
         int count = {};
         cout << "\n\t\t\t1 <- Delete student by 'Name'....." << endl
@@ -201,12 +202,15 @@ class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **************
         if(choice == 1) {
             cout << "\n\t\t\tEnter Name of student to be deleted : "; cin.ignore();  //FLUSHING STREAM...
             getline(cin, deleteName);
-            while(!in.eof() && !in.fail()) {          /* MAIN CORRECT CODE, commented to try something diff...below!! */
+            for(int i=0; i<countEntries(); i++) {   
                 getline(in, str1);
                 getline(in, str2);
                 getline(in, str3);
                 getline(in, str4);
-                if(deleteName == str1) { continue; }
+                if(deleteName == str1) { 
+                    count++; 
+                    continue; 
+                }
                 else {
                     out << str1 << endl;
                     out << str2 << endl;
@@ -216,7 +220,31 @@ class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **************
             }
             in.close();
             out.close();
-            if(count == 0) { cout << "\n\t\t\tNo such Entries found !\n"; }
+
+            // if(count == 0) { cout << "\n\t\t\tNo such Entries found !\n"; }
+            ofstream in; in.open("TemporaryStudents.txt");
+
+            ofstream out; out.open("Students.txt"); out.close();   //NEED TO SOLVE THIS MYTH !!! DIDNT DO PROPERLY TRY OTHER LOGIC
+            out.open("Students.txt", ios::app);
+
+            for(int i=0; i<countEntries(); i++) {   
+                // getline(in, str1);
+                // getline(in, str2);
+                // getline(in, str3);
+                // getline(in, str4);
+
+                cin >> str1;
+                cin >> str2;
+                cin >> str3;
+                cin >> str4;
+
+                out << str1 << endl;
+                out << str2 << endl;
+                out << str3 << endl;
+                out << str4 << endl;
+            }
+            in.close();
+            out.close();
         }
         else if(choice == 2) {
             cout << "\n\t\t\tEnter Roll Number of student to be deleted : "; cin.ignore();  //FLUSHING STREAM...
@@ -264,6 +292,15 @@ class CollegeStudents : public CollegeDetails {  //STUDENTS CLASS **************
         else {
             cout << endl << "Incorrect Choice Entered ! " << endl; //break;
         }       
+    }
+    int countEntries() {
+        int countEntries = 0;
+        string line;
+        ifstream in;
+        in.open("Students.txt");
+        while(getline(in, line)) { countEntries++; }
+        return(countEntries/4);
+        // cout << "Count : " << count/4;
     }
 };
 class CollegeTeachers : public CollegeDetails {  //TEACHERS CLASS ***********************************
@@ -508,10 +545,20 @@ void DataBase::loginPage() {  //TO SIGN IN TO THE SYSTEM
     if(pass == "User123") {
         int credDOB, credOTP;
         cout << "\n\n\n\t\t\t\t\t\t ...WELCOME BOSS !... \n\t\t\t";
-        cout << "\n\n\n\n\t\t...Please verify yourself !...\n"
+        cout << "\n\t\t...Please verify yourself !...\n"
              << "\n\t\t\t\tEnter Security Credentials : ";
         cin >> credDOB >> credOTP;
-        if((credDOB == 0124) && (credOTP == 2003)) { cout << "\n\n\t\t\t\tGranted security access..."; }
+        if((credDOB == 1111) && (credOTP == 2222)) { 
+            cout << "\t\t\t\tGranted security access..." 
+                 << "\n\t\t\t\tDo you wish to check set password ?   ";
+            string c;
+            cin >> c;
+            if((c == "yes")||(c == "Yes")||(c == "YES")||(c == "y")||(c == "Y")||(c == "sure")||(c == "SURE")) {
+                cout << "\n\t\t\t\t\tSet Password is : " << password;
+            }
+            
+
+        }
         else { 
             cout << "\n\n\t\t\t\tDenied Access :: SYSTEM LOCKED ::"; 
             exit(1);
