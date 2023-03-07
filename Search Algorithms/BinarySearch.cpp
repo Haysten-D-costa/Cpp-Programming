@@ -15,7 +15,7 @@ Prerequisites : Basics of C++
 Known Bugs    : NONE
 ***************************************************************************************************************** */
 #include <iostream>
-#include "myArrayOperations.h"
+#include "../HeaderFiles/myArrayOperations.h"
 using namespace std;
 using namespace arr;
 
@@ -44,7 +44,7 @@ void binarySearch(int A[], int low, int up, int search)
         int mid = (low + up)/2;
         if(search == A[mid]) // Match found, then print...
         {  
-            cout << endl << "Element found at " << mid + 1; 
+            cout << endl << "Element found at position '" << mid + 1 << "' (index " << mid << ")";
             counter++;
             break;
         }
