@@ -15,7 +15,7 @@ Prerequisites : Basics of C++
 Known Bugs    : NONE
 ***************************************************************************************************************** */
 #include <iostream>
-#include "myArrayOperations.h"
+#include "../HeaderFiles/myArrayOperations.h"
 using namespace std;
 using namespace arr;
 
